@@ -1,0 +1,334 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+body {
+    font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', 'Arial', sans-serif;
+    overflow: hidden;
+    background: linear-gradient(45deg,
+        #ff6b9d, #ff8e8f, #ffb347, #87ceeb, #98fb98, #dda0dd, #f0e68c, #ff6b9d);
+    background-size: 600% 600%;
+    animation: rainbowBG 12s ease infinite;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes rainbowBG {
+    0% { background-position: 0% 50%; }
+    14% { background-position: 20% 100%; }
+    28% { background-position: 40% 50%; }
+    42% { background-position: 60% 0%; }
+    56% { background-position: 80% 50%; }
+    70% { background-position: 100% 100%; }
+    84% { background-position: 80% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+#gameContainer {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    max-width: 480px;
+    max-height: 800px;
+    background: linear-gradient(180deg,
+        rgba(255, 107, 157, 0.3),
+        rgba(255, 142, 143, 0.3),
+        rgba(255, 179, 71, 0.3),
+        rgba(135, 206, 235, 0.3));
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* 屏幕通用样式 */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* 开始界面 */
+#startScreen {
+    text-align: center;
+    color: white;
+}
+
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+    animation: bounce 1.5s infinite;
+    background: linear-gradient(45deg, #ff6b9d, #ff8e8f, #ffb347, #87ceeb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transform: rotate(-2deg);
+}
+
+.subtitle {
+    font-size: 24px;
+    margin-bottom: 40px;
+    color: #fff;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+    transform: rotate(1deg);
+}
+
+.instructions {
+    margin-top: 30px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #ffe4e1;
+}
+
+.instructions p {
+    margin: 8px 0;
+}
+
+/* 游戏界面 */
+#gameScreen {
+    background: transparent;
+}
+
+#gameCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#gameUI {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 10;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.ui-left {
+    text-align: left;
+}
+
+.ui-right {
+    text-align: right;
+}
+
+/* 控制按钮 */
+.control-btn {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 4px solid white;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b9d, #ffb347, #87ceeb);
+    color: white;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 20;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.control-btn:active {
+    transform: scale(0.85) rotate(10deg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.shoot-btn {
+    bottom: 40px;
+    right: 40px;
+    background: linear-gradient(135deg, #ff6b9d, #ffb347);
+    width: 90px;
+    height: 90px;
+    font-size: 36px;
+    animation: pulse 2s infinite;
+}
+
+.pause-btn {
+    top: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    background: linear-gradient(135deg, #87ceeb, #98fb98);
+}
+
+/* 暂停和游戏结束界面 */
+.pause-content, .gameover-content {
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.pause-content h2, .gameover-content h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.final-score {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #ffe4e1;
+}
+
+/* 通用按钮样式 */
+.game-btn {
+    background: linear-gradient(135deg, #ff6b9d, #ffb347, #87ceeb);
+    color: white;
+    border: 4px solid white;
+    padding: 20px 40px;
+    font-size: 22px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 20px;
+    font-weight: bold;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    min-width: 200px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.game-btn:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+}
+
+.game-btn:hover {
+    transform: translateY(-5px) scale(1.1) rotate(1deg);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+}
+
+.game-btn:active {
+    transform: translateY(0) scale(0.9) rotate(-1deg);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* 头像上传 */
+#avatarUpload {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.upload-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: #ff1493;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+.upload-btn:hover {
+    background: white;
+    transform: translateY(-1px);
+}
+
+/* 动画效果 */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    25% { transform: translateY(-15px) rotate(-1deg); }
+    50% { transform: translateY(0) rotate(-2deg); }
+    75% { transform: translateY(-8px) rotate(-3deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.15) rotate(5deg); }
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* 闪烁效果 */
+.flash {
+    animation: flashAnimation 0.5s ease-in-out;
+}
+
+@keyframes flashAnimation {
+    0%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* 响应式适配 */
+@media (max-width: 480px) {
+    .title { font-size: 24px; }
+    .subtitle { font-size: 18px; }
+    .control-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    .shoot-btn {
+        bottom: 20px;
+        right: 20px;
+    }
+    #gameUI {
+        font-size: 16px;
+        padding: 0 15px;
+    }
+}
+
+@media (max-height: 600px) {
+    .instructions {
+        font-size: 14px;
+        margin-top: 20px;
+    }
+    .game-btn {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+}
