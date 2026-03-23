@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "public": true,
+  "builds": [
+    {
+      "src": "wyyan1/index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "wyyan1/*.{jpg,png,gif,css,js}",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/wyyan1/index.html"
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "outputDirectory": "wyyan1"
+}

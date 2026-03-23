@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>💕 吴艳宝贝的专属游戏 💕</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 游戏容器 -->
+    <div id="gameContainer">
+        <!-- 开始界面 -->
+        <div id="startScreen" class="screen active">
+            <div class="title">💕 吴艳宝贝的专属游戏 💕</div>
+            <div class="subtitle">天使保卫战</div>
+            <button id="startBtn" class="game-btn">开始游戏</button>
+            <div class="instructions">
+                <p>🎮 拖拽天使移动</p>
+                <p>🔫 点击右下角射击</p>
+                <p>💗 收集爱心恢复生命</p>
+            </div>
+        </div>
+
+        <!-- 游戏界面 -->
+        <div id="gameScreen" class="screen">
+            <!-- 游戏画布 -->
+            <canvas id="gameCanvas"></canvas>
+
+            <!-- UI界面 -->
+            <div id="gameUI">
+                <div id="scoreDisplay" class="ui-left">
+                    分数: <span id="score">0</span>
+                </div>
+                <div id="livesDisplay" class="ui-right">
+                    ❤️ <span id="lives">3</span>
+                </div>
+            </div>
+
+            <!-- 控制按钮 -->
+            <button id="pauseBtn" class="control-btn pause-btn">⏸️</button>
+            <button id="shootBtn" class="control-btn shoot-btn">🔫</button>
+        </div>
+
+        <!-- 暂停界面 -->
+        <div id="pauseScreen" class="screen">
+            <div class="pause-content">
+                <h2>游戏暂停</h2>
+                <button id="resumeBtn" class="game-btn">继续游戏</button>
+                <button id="restartBtn" class="game-btn">重新开始</button>
+            </div>
+        </div>
+
+        <!-- 游戏结束界面 -->
+        <div id="gameOverScreen" class="screen">
+            <div class="gameover-content">
+                <h2>游戏结束</h2>
+                <div class="final-score">
+                    最终分数: <span id="finalScore">0</span>
+                </div>
+                <button id="restartBtn2" class="game-btn">重新开始</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="game.js"></script>
+</body>
+</html>
